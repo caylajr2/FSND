@@ -1,21 +1,77 @@
-# pip>=21.0
-setuptools>=57.0
+# setuptools>=57.0
+# alembic==1.6.5
+# click==8.0.1
+# Flask==1.1.2
+# Flask-Cors==3.0.10
+# Flask-Migrate==2.7.0
+# Flask-Script==2.0.6
+# Flask-SQLAlchemy==2.5.1
+# greenlet==2.0.2
+# gunicorn==20.1.0
+# itsdangerous==2.0.1
+# Jinja2==3.0.1
+# Mako==1.1.4
+# MarkupSafe==2.0.1
+# psycopg2-binary==2.9.1
+# python-dateutil==2.8.1
+# python-editor==1.0.4
+# six==1.16.0
+# SQLAlchemy==1.4.18
+# Werkzeug==2.0.1
+
+
 alembic==1.6.5
+astroid==2.2.5
+autopep8==2.0.4
+Babel==2.9.0
+cffi==1.15.1
 click==8.0.1
+colorama==0.4.6
+cryptography==44.0.1
+distlib==0.3.9
+ecdsa==0.13.2
+filelock==3.12.2
 Flask==1.1.2
 Flask-Cors==3.0.10
 Flask-Migrate==2.7.0
+Flask-Moment==0.11.0
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.5.1
+Flask-WTF==0.14.3
+future==0.17.1
 greenlet==2.0.2
 gunicorn==20.1.0
+importlib-metadata==6.7.0
+importlib-resources==5.12.0
+isort==4.3.18
 itsdangerous==2.0.1
 Jinja2==3.0.1
+jose==1.0.0
+lazy-object-proxy==1.4.0
 Mako==1.1.4
 MarkupSafe==2.0.1
+mccabe==0.6.1
+platformdirs==4.0.0
+psycopg2==2.9.9
 psycopg2-binary==2.9.1
+pyasn1==0.5.1
+pycodestyle==2.10.0
+pycparser==2.21
+pycryptodome==3.3.1
+pylint==2.3.1
 python-dateutil==2.8.1
+python-dotenv==0.21.1
 python-editor==1.0.4
+python-jose==3.3.0
+pytz==2024.2
+rsa==4.9
 six==1.16.0
 SQLAlchemy==1.4.18
+tomli==2.0.1
+typed-ast==1.5.5
+typing_extensions==4.7.1
+virtualenv==20.26.6
 Werkzeug==2.0.1
+wrapt==1.11.1
+WTForms==3.0.1
+zipp==3.15.0
