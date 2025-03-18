@@ -87,6 +87,7 @@ class Customer(db.Model):
     def format(self):
         return {
             'id': self.id,
+            'cart_id': self.cart_id,
             'name': self.name,
             'image': self.image
         }
@@ -96,7 +97,7 @@ class Cart(db.Model):
     __tablename__ = 'carts'
 
     id = Column(Integer, primary_key=True)
-    customer_id = Column(Integer, nullable=False)
+    customer_id = db.Column(Integer, nullable=False)
     item_ids = Column((db.ARRAY(db.Integer)))
 
     def __init__(self, customer_id, item_ids):
