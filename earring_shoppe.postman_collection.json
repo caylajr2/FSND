@@ -1,0 +1,2392 @@
+{
+	"info": {
+		"_postman_id": "3fa10f97-9e1f-43f0-af0a-53e121565732",
+		"name": "earring_shoppe",
+		"description": "Check auth and implementation of different endpoints for different levels of security: public, customer, and owner.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31016422"
+	},
+	"item": [
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains items array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.items).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get items/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains item with id 1\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.item.id).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer/cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer/cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add moonstone studs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"name\": \"Celestial Moonstone Studs\",\r\n      \"description\": \"Dainty moonstone stud earrings set in sterling silver, radiating a soft iridescence reminiscent of a moonlit night.\", \r\n      \"image\": \"celestial_moonstone_studs.jpg\", \r\n      \"cost\": 249.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/items",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"image\": \"james_image.jpg\", \r\n    \"name\": \"James\",\r\n    \"cart\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add to cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/3/add_to_cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"3",
+								"add_to_cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post remove from cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/3/remove_from_cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"3",
+								"remove_from_cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "place order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer/place_order",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer",
+								"place_order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch cost items/7",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cost\": 120.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/items/7",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch cart customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cart\": [2,3,8]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete items/4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 since no credentials are present\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Public access, no need to login and get a bearer token."
+		},
+		{
+			"name": "Customer1 (Bob)",
+			"item": [
+				{
+					"name": "items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains items array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.items).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get items/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains item with id 1\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.item.id).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since customer role not authorized for this\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer/cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer/cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add to cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/3/add_to_cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"3",
+								"add_to_cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post remove from",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/3/remove_from_cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"3",
+								"remove_from_cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "place order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer/place_order",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer",
+								"place_order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add moonstone studs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since customer role not authorized for this\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"name\": \"Celestial Moonstone Studs\",\r\n      \"description\": \"Dainty moonstone stud earrings set in sterling silver, radiating a soft iridescence reminiscent of a moonlit night.\", \r\n      \"image\": \"celestial_moonstone_studs.jpg\", \r\n      \"cost\": 249.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/items",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch image/name customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"image\": \"bob_image_update.jpg\", \r\n    \"name\": \"Bob B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch cart customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cart\": [3,7,15,23]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch name items/7",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since customer role not authorized for this\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Black Onyx Earrings\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/items/7",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete items/4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since customer role not authorized for this\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Link to login for bearer token:\n\n[https://dev-aavh3rbagn61hnv3.us.auth0.com/authorize?audience=shoppe&amp;response_type=token&amp;client_id=tX5yIt7JVhDd2ShhBAcFxXjrkNdo7kHw&amp;redirect_uri=http://localhost:8080/](https://dev-aavh3rbagn61hnv3.us.auth0.com/authorize?audience=shoppe&response_type=token&client_id=tX5yIt7JVhDd2ShhBAcFxXjrkNdo7kHw&redirect_uri=http://localhost:8080/)\n\nLogin info:\n\nEmail: [bob456@employer.net](https://mailto:bob456@employer.net)\n\nPassword: Customer1",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InFVUTREUnZUeUZGWU80QllkTGtpMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1hYXZoM3JiYWduNjFobnYzLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2N2RhMWQzNmQzNTAxYmRlMDIxY2ZjNjkiLCJhdWQiOiJzaG9wcGUiLCJpYXQiOjE3NDI1MTI2ODIsImV4cCI6MTc0MjU5OTA4Miwic2NvcGUiOiIiLCJhenAiOiJ0WDV5SXQ3SlZoRGQyU2hoQkFjRnhYanJrTmRvN2tIdyIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpjdXN0b21lciIsImVkaXQ6Y3VzdG9tZXIiLCJnZXQ6Y3VzdG9tZXIiLCJnZXQ6aXRlbSIsImdldDppdGVtcyIsInBsYWNlOm9yZGVyIiwicG9zdDpjdXN0b21lciIsInJlc2VydmU6aXRlbSJdfQ.ck24qlJp13pGrFLeoepIc-tjz5kUK3BO5NvSzMQDWUOLpRiVVSf91BcBX9zuGvk3Ht0XLQFWTlfzGxGigt3Nx6Xxue4RjgpJfYGRz23TuNxDf9Pme0nqtUeqZJ2dtXM0pHYv9-cs2RE-_xhENHiTIKD5MRdyob7Vc0JFiFaDZCaRxGU0ru7UMqQUcC40M8u7tmNxIhYEhxNg4mIqAtfduUaV1SqNSpCO6DTEA_HW9qWtDhnixhFJe3JKF8NSKp_AE5SBr2UvGq9lMD2fOh-_Kvl-3JInky_frcTc7X1aM37ltbq7w5l0oHLAc-j4NE3y2TZu7kADVEWdWBye_qgmLg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Customer2 (Charlie)",
+			"item": [
+				{
+					"name": "items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains items array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.items).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get items/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains item with id 1\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.item.id).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since customer role not authorized for this\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer/cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer/cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add to cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/3/add_to_cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"3",
+								"add_to_cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post remove from",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/3/remove_from_cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"3",
+								"remove_from_cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "place order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer/place_order",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer",
+								"place_order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add moonstone studs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since customer role not authorized for this\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"name\": \"Celestial Moonstone Studs\",\r\n      \"description\": \"Dainty moonstone stud earrings set in sterling silver, radiating a soft iridescence reminiscent of a moonlit night.\", \r\n      \"image\": \"celestial_moonstone_studs.jpg\", \r\n      \"cost\": 249.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/items",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch image/name customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"image\": \"charlie_image_update.jpg\", \r\n    \"name\": \"Charlie C\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch cart customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cart\": [2,8,12]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch name items/7",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since customer role not authorized for this\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Black Onyx Earrings\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/items/7",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete items/4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since customer role not authorized for this\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Link to login for bearer token:\n\n[https://dev-aavh3rbagn61hnv3.us.auth0.com/authorize?audience=shoppe&amp;response_type=token&amp;client_id=tX5yIt7JVhDd2ShhBAcFxXjrkNdo7kHw&amp;redirect_uri=http://localhost:8080/](https://dev-aavh3rbagn61hnv3.us.auth0.com/authorize?audience=shoppe&response_type=token&client_id=tX5yIt7JVhDd2ShhBAcFxXjrkNdo7kHw&redirect_uri=http://localhost:8080/)\n\nLogin info:\n\nEmail: [charlie789@government.org](https://mailto:charlie789@government.org)\n\nPassword: Customer2",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InFVUTREUnZUeUZGWU80QllkTGtpMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1hYXZoM3JiYWduNjFobnYzLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2N2RhMWRhZDc1ODY4YmUzNmNmYmUyMzEiLCJhdWQiOiJzaG9wcGUiLCJpYXQiOjE3NDI1MTI3MzEsImV4cCI6MTc0MjU5OTEzMSwic2NvcGUiOiIiLCJhenAiOiJ0WDV5SXQ3SlZoRGQyU2hoQkFjRnhYanJrTmRvN2tIdyIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpjdXN0b21lciIsImVkaXQ6Y3VzdG9tZXIiLCJnZXQ6Y3VzdG9tZXIiLCJnZXQ6aXRlbSIsImdldDppdGVtcyIsInBsYWNlOm9yZGVyIiwicG9zdDpjdXN0b21lciIsInJlc2VydmU6aXRlbSJdfQ.mNMnVZ8w1yi6tKVXgeQ54HXZDqM-FTyDxDu421GcleJ4x0X-8q1sGPsEPV29qKlNFgrFlU4JGlxe_3TcDmG3vATkHarfCKfBJbLda5FlFzX34hsy_jhP5R3oKvNapd7V91T9SrJBcF6Jj_CEQtuFdtUXWeP4X1ETilpvA_upFhoDo71ZLSXWyqGQpjh2SORrDpY2QWDDcLhGK3tcUDhZPpYFylHYrf61tRVAW4zPD94sTb-taWToyYtgu-fwJRgXf6qrgHvYp5jatkpoy3pUbJZsTuM-G2XUHZ7PYrVPPSDXUDNtq47BKP-1M53gdEvuN10yhLjtuYcy6JI4a2AZ8g",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Customer3 (James)",
+			"item": [
+				{
+					"name": "add customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cart\": [\r\n        1,2,6\r\n    ],\r\n    \"image\": \"james_image.jpg\",\r\n    \"name\": \"James\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InFVUTREUnZUeUZGWU80QllkTGtpMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1hYXZoM3JiYWduNjFobnYzLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2N2RhMjg0MTkxYjI3NWZkNDBlNGE1YjAiLCJhdWQiOiJzaG9wcGUiLCJpYXQiOjE3NDI1MTI5MTcsImV4cCI6MTc0MjU5OTMxNywic2NvcGUiOiIiLCJhenAiOiJ0WDV5SXQ3SlZoRGQyU2hoQkFjRnhYanJrTmRvN2tIdyIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpjdXN0b21lciIsImVkaXQ6Y3VzdG9tZXIiLCJnZXQ6Y3VzdG9tZXIiLCJnZXQ6aXRlbSIsImdldDppdGVtcyIsInBsYWNlOm9yZGVyIiwicG9zdDpjdXN0b21lciIsInJlc2VydmU6aXRlbSJdfQ.VUlDM4SVbOBJ0RvnxS9_x79OHcUh9Mqt4TRpOVkzvUOcdCktaAOjBZsqXUbRKxQYYoZSD48cD9TLSXHp_xtfaMG6l8mUmE6JNsPEbhZynN_gpwsv12Te1juaoXRstXuZ9q-v5jLxO0sYu1AYI_mJPHHidqKVqgJ-P7EqxJeHDQMNRnfMVV-gN09FFmw9Sa5wYghUFsuMNo0EIqLNZrIzH2kFhtsDqClpu3jG0BIfz6ojnaGP2ctkVAC41WERX8wlHOwDr_UbKr988PYaIope9MQ_VLn0uASN6zK3M2uy0DQVBBzI4WdGtZPHXkbppQGYKUkhmxqBoNM0N7zFCqLO3w",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Owner (Alice)",
+			"item": [
+				{
+					"name": "items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains items array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.items).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get items/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains item with id 1\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.item.id).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customers array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customers).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer/cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer/cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add to cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/3/add_to_cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"3",
+								"add_to_cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post remove from cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/3/remove_from_cart",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"3",
+								"remove_from_cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "place order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/customer/place_order",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer",
+								"place_order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add moonstone studs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value has correct item.name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.item.name).is.eql('Celestial Moonstone Studs')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"name\": \"Celestial Moonstone Studs\",\r\n      \"description\": \"Dainty moonstone stud earrings set in sterling silver, radiating a soft iridescence reminiscent of a moonlit night.\", \r\n      \"image\": \"celestial_moonstone_studs.jpg\", \r\n      \"cost\": 249.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/items",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add vine hoops",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value has correct item.name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.item.name).is.eql('Rose Gold Vine Hoops')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"name\": \"Rose Gold Vine Hoops\",\r\n      \"description\": \"Delicate rose gold hoops entwined with intricate vine detailing, adding a touch of nature-inspired elegance.\", \r\n      \"image\": \"rose_gold_vine_hoops.jpg\", \r\n      \"cost\": 149.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/items",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add chandelier earrings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value has correct item.name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.item.name).is.eql('Sapphire Chandelier Earrings')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"name\": \"Sapphire Chandelier Earrings\",\r\n      \"description\": \"Stunning chandelier earrings adorned with deep blue sapphire stones and shimmering silver accents.\", \r\n      \"image\": \"sapphire_chandelier_earrings.jpg\", \r\n      \"cost\": 249.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/items",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch image/name customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"image\": \"alice_image_update.jpg\", \r\n    \"name\": \"Alice A\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch cart customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains customer.cart array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.customer.cart).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cart\": [2,3,8]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/customer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch name items/7",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value has correct item.name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.item.name).is.eql('Black Onyx Earrings')\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Black Onyx Earrings\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/items/7",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch cost items/7",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value has correct item.cost\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.item.cost).is.eql(120.99)\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cost\": 120.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/items/7",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete items/4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/items/4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"items",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Link to login for bearer token:\n\n[https://dev-aavh3rbagn61hnv3.us.auth0.com/authorize?audience=shoppe&amp;response_type=token&amp;client_id=tX5yIt7JVhDd2ShhBAcFxXjrkNdo7kHw&amp;redirect_uri=http://localhost:8080/](https://dev-aavh3rbagn61hnv3.us.auth0.com/authorize?audience=shoppe&response_type=token&client_id=tX5yIt7JVhDd2ShhBAcFxXjrkNdo7kHw&redirect_uri=http://localhost:8080/)\n\nLogin info:\n\nEmail: [alice123@shoppe.com](https://mailto:alice123@shoppe.com)\n\nPassword: ShoppeOwner1",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InFVUTREUnZUeUZGWU80QllkTGtpMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1hYXZoM3JiYWduNjFobnYzLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2N2RhMWMzYzY0ZjJiYTgyNzg4YTNiMDIiLCJhdWQiOiJzaG9wcGUiLCJpYXQiOjE3NDI1MTI2MjAsImV4cCI6MTc0MjU5OTAyMCwic2NvcGUiOiIiLCJhenAiOiJ0WDV5SXQ3SlZoRGQyU2hoQkFjRnhYanJrTmRvN2tIdyIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpjdXN0b21lciIsImRlbGV0ZTppdGVtIiwiZWRpdDpjdXN0b21lciIsImVkaXQ6aXRlbSIsImdldDpjdXN0b21lciIsImdldDpjdXN0b21lcnMiLCJnZXQ6aXRlbSIsImdldDppdGVtcyIsInBsYWNlOm9yZGVyIiwicG9zdDpjdXN0b21lciIsInBvc3Q6aXRlbSIsInJlc2VydmU6aXRlbSJdfQ.pOBbFzfIUo_VQx0rOIrfrj7bYwBK6KITytuldpNTTvOmO8XC6tb9QxA7zgSfn_kbzl-o1BuM22QdFV41eDCda-KaT2-DZJo3_vZEZ8GGmaFw4CqNM2s6xf_8pLwaAI_ylyyT2bcuxg8U4Lx3RwRuCyFvr3BDXsRchn7EnBOIw7sluPh6LsGstTDukDDZMT4fiUsHyuFJRd-usDh7WtCcw-rBNzNQ-Tg6GPVeLsH0005ET-WOKHt8x77toVmYBLlDKbIAUE2Q0I1L6bRq6u-HwAx-J3T_bIDsX_brYFE8t0ZgfOWXDik9e7hgbKOrwzLAMmdo-pV55SUp8VXE8YLYIA",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://192.168.50.172:8080/",
+			"type": "string"
+		}
+	]
+}
