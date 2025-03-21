@@ -1,12 +1,13 @@
 from sqlalchemy import Column, String, Integer, Float
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm.attributes import flag_modified
+import os
 
-database_name = "earring_shoppe"
-database_user = "student"
-database_password = "student"
-database_host = 'localhost:5432'
-database_path = f'postgresql://{database_user}:{database_password}@{database_host}/{database_name}'
+# database_name = "earring_shoppe"
+# database_user = "student"
+# database_password = "student"
+# database_host = 'localhost:5432'
+# database_path = f'postgresql://{database_user}:{database_password}@{database_host}/{database_name}'
 
 db = SQLAlchemy()
 
@@ -14,7 +15,7 @@ db = SQLAlchemy()
 setup_db(app)
     binds a flask application and a SQLAlchemy service
 """
-def setup_db(app, database_path=database_path):
+def setup_db(app, database_path=os.getenv("DATABASE_URL")):
     app.config['SQLALCHEMY_DATABASE_URI'] = database_path
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
