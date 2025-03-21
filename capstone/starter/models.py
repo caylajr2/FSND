@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Integer, Float
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm.attributes import flag_modified
 
 database_name = "earring_shoppe"
 database_user = "student"
@@ -66,18 +67,21 @@ class Customer(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     image = Column(String, nullable=False)
-    cart_id = Column(Integer, nullable=False)
+    cart = Column((db.ARRAY(db.Integer)))
+    sub = Column(String, nullable=False)
 
-    def __init__(self, name, image, cart_id):
+    def __init__(self, name, image, cart, sub):
         self.name = name
         self.image = image
-        self.cart_id = cart_id
+        self.cart = cart
+        self.sub = sub
 
     def insert(self):
         db.session.add(self)
         db.session.commit()
 
     def update(self):
+        flag_modified(self, "cart")
         db.session.commit()
 
     def delete(self):
@@ -87,37 +91,8 @@ class Customer(db.Model):
     def format(self):
         return {
             'id': self.id,
-            'cart_id': self.cart_id,
+            'cart': self.cart,
             'name': self.name,
-            'image': self.image
-        }
-
-'''Cart'''
-class Cart(db.Model):
-    __tablename__ = 'carts'
-
-    id = Column(Integer, primary_key=True)
-    customer_id = db.Column(Integer, nullable=False)
-    item_ids = Column((db.ARRAY(db.Integer)))
-
-    def __init__(self, customer_id, item_ids):
-        self.customer_id = customer_id
-        self.item_ids = item_ids
-
-    def insert(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def update(self):
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-    def format(self):
-        return {
-            'id': self.id,
-            'customer_id': self.customer_id,
-            'item_ids': self.item_ids
+            'image': self.image,
+            'sub': self.sub
         }

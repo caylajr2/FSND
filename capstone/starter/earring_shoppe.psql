@@ -1,4 +1,4 @@
--- PostgreSQL database dump
+-- PostgreSQL database dump 
 
 -- Dumped from database version 11.3
 -- Dumped by pg_dump version 11.3
@@ -33,39 +33,51 @@ CREATE TABLE IF NOT EXISTS public.customers (
 	id serial PRIMARY KEY,
 	name text NOT NULL,
 	image text NOT NULL,
-	cart_id integer NOT NULL
+	sub text NOT NULL,
+	cart integer[]
 );
 
 ALTER TABLE public.customers OWNER TO student;
 
--- Name: carts; Type: TABLE; Schema: public; Owner: student
-CREATE TABLE IF NOT EXISTS public.carts (
-	id serial PRIMARY KEY,
-	customer_id integer NOT NULL,
-	item_ids integer[] -- Using an array to store item_ids
-);
-
-ALTER TABLE public.carts OWNER TO student;
-
 -- Data for Name: items; Type: TABLE DATA; Schema: public; Owner: student
 \copy public.items (name, description, image, cost) FROM stdin;
-Gold Necklace	Elegant gold necklace	gold_necklace.jpg	299.99
-Silver Earrings	Beautiful silver earrings	silver_earrings.jpg	149.99
-Diamond Ring	Sparkling diamond ring	diamond_ring.jpg	999.99
+Silver Teardrop Earrings	Delicate silver teardrop earrings with a polished finish.	silver_teardrop.jpg	79.99
+Golden Hoop Earrings	Classic 18K gold hoops for a timeless look.	golden_hoop.jpg	89.99
+Diamond Stud Earrings	Brilliant-cut diamond studs set in white gold.	diamond_studs.jpg	399.99
+Rose Gold Leaf Earrings	Intricate rose gold earrings shaped like delicate leaves.	rose_gold_leaf.jpg	99.99
+Pearl Drop Earrings	Elegant freshwater pearls dangling from sterling silver.	pearl_drop.jpg	119.99
+Crystal Chandelier Earrings	Exquisite crystal-encrusted chandelier earrings.	crystal_chandelier.jpg	149.99
+Black Onyx Dangle Earrings	Mystical black onyx set in sterling silver.	black_onyx_dangle.jpg	89.99
+Turquoise Feather Earrings	Bohemian-style turquoise earrings with feather accents.	turquoise_feather.jpg	79.99
+Opal Teardrop Earrings	Shimmering opal teardrop earrings with a gold frame.	opal_teardrop.jpg	129.99
+Sapphire Stud Earrings	Deep blue sapphire studs in platinum.	sapphire_studs.jpg	349.99
+Emerald Hoop Earrings	Rich green emerald-studded gold hoops.	emerald_hoop.jpg	279.99
+Ruby Heart Earrings	Romantic ruby hearts set in rose gold.	ruby_heart.jpg	199.99
+Amethyst Cascade Earrings	Elegant amethyst gemstones in a cascading design.	amethyst_cascade.jpg	159.99
+Garnet Teardrop Earrings	Deep red garnet stones in a sophisticated teardrop shape.	garnet_teardrop.jpg	139.99
+Moonstone Glow Earrings	Softly glowing moonstones set in sterling silver.	moonstone_glow.jpg	149.99
+Sunburst Gold Earrings	Radiant gold earrings with a sunburst pattern.	sunburst_gold.jpg	119.99
+Celestial Star Earrings	Sparkling star-shaped earrings with cubic zirconia.	celestial_star.jpg	109.99
+Zirconia Infinity Earrings	Elegant infinity loops adorned with zirconia gems.	zirconia_infinity.jpg	89.99
+Lapis Lazuli Stud Earrings	Deep blue lapis lazuli studs for a regal look.	lapis_lazuli_studs.jpg	129.99
+Aquamarine Wave Earrings	Soft blue aquamarine stones in a wave pattern.	aquamarine_wave.jpg	179.99
+Silver Vine Earrings	Delicate sterling silver vines wrapping gracefully.	silver_vine.jpg	119.99
+Golden Butterfly Earrings	Whimsical butterfly designs in 18K gold.	golden_butterfly.jpg	139.99
+Vintage Cameo Earrings	Classic cameo designs set in antique gold.	vintage_cameo.jpg	159.99
+Boho Beaded Earrings	Handmade boho-style earrings with colorful beads.	boho_beaded.jpg	79.99
+Hematite Cube Earrings	Modern hematite cube earrings for a bold look.	hematite_cube.jpg	89.99
+Floral Enamel Earrings	Vibrant floral enamel earrings with fine detailing.	floral_enamel.jpg	109.99
+Citrine Sun Earrings	Bright citrine stones capturing the warmth of the sun.	citrine_sun.jpg	129.99
+Minimalist Bar Earrings	Sleek and simple bar-style earrings in sterling silver.	minimalist_bar.jpg	99.99
+Twisted Rope Hoops	Classic gold hoops with a twisted rope texture.	twisted_rope_hoops.jpg	119.99
+Art Deco Drop Earrings	Vintage-inspired art deco drop earrings with bold lines.	art_deco_drop.jpg	159.99
 \.
 
 -- Data for Name: customers; Type: TABLE DATA; Schema: public; Owner: student
-\copy public.customers (name, image, cart_id) FROM stdin;
-Alice	alice_image.jpg	1
-Bob	bob_image.jpg	2
-Charlie	charlie_image.jpg	3
-\.
-
--- Data for Name: carts; Type: TABLE DATA; Schema: public; Owner: student
-\copy public.carts (customer_id, item_ids) FROM stdin;
-1	{1, 2}
-2	{2, 3}
-3	{1, 3}
+\copy public.customers (name, image, sub, cart) FROM stdin;
+Alice	alice_image.jpg	auth0|67da1c3c64f2ba82788a3b02	{1,5,9}
+Bob	bob_image.jpg	auth0|67da1d36d3501bde021cfc69	{3,7,15}
+Charlie	charlie_image.jpg	auth0|67da1dad75868be36cfbe231	{2,4,8,12}
 \.
 
 -- PostgreSQL database dump complete

@@ -3,7 +3,8 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
-from models import setup_db, Item, Customer, Cart, db
+from models import setup_db, Item, Customer, db
+from auth import AuthError, requires_auth
 
 
 # pagination modified from trivia_api
@@ -106,7 +107,8 @@ def create_app(test_config=None):
     Get Customers
     """
     @app.route('/customers')
-    def get_customers():
+    @requires_auth('get:customers')
+    def get_customers(payload):
         try:
             customers = Customer.query.all()
             return jsonify({
@@ -118,44 +120,34 @@ def create_app(test_config=None):
     """
     Get Customer by id
     """
-    @app.route('/customers/<int:customer_id>')
-    def get_specific_customer(customer_id):
+    @app.route('/customer')
+    @requires_auth('get:customer')
+    def get_specific_customer(payload):
         try:
-            customer = Customer.query.filter(Customer.id == customer_id).one_or_none()
+            sub = payload['sub']
+            customer = Customer.query.filter(Customer.sub == sub).one_or_none()
             return jsonify({
                 'customer': customer.format()
             }), 200
         except Exception as e:
             abort(404, description="get /customers: " + str(e))
-
-
-    """
-    Get Carts
-    """
-    @app.route('/carts')
-    def get_carts():
-        try:
-            data = db.session.query(Cart, Customer).join(Customer, Cart.id == Customer.cart_id).all()
-            data = [(cart.format(), customer.format()) for cart, customer in data]
-            return jsonify({
-                'carts': data
-            }), 200
-        except Exception as e:
-            abort(404, description="get /carts: " + str(e))
     
+
     """
-    Get Cart by id
+    Get Only Customer's Cart
     """
-    @app.route('/carts/<int:cart_id>')
-    def get_specific_cart(cart_id):
+    @app.route('/customer/cart')
+    @requires_auth('get:customer')
+    def get_specific_cart(payload):
         try:
-            cart, customer = db.session.query(Cart, Customer).join(Customer, Cart.id == Customer.cart_id).filter(Cart.id == cart_id).one_or_none()
+            sub = payload['sub']
+            customer = Customer.query.filter(Customer.sub == sub).one_or_none()
             return jsonify({
-                'customer': customer.format(),
-                'cart': cart.format()
+                'customer': customer.id,
+                'cart': customer.cart
             }), 200
         except Exception as e:
-            abort(404, description="get /carts/<int:cart_id>: " + str(e))
+            abort(404, description="get /customers/cart: " + str(e))
 
 
 
@@ -170,7 +162,8 @@ def create_app(test_config=None):
     Add New Item from request json
     """
     @app.route('/items', methods=['POST'])
-    def add_item():
+    @requires_auth('post:item')
+    def add_item(payload):
         try:
             item = Item(**request.get_json())
             item.insert()
@@ -182,27 +175,28 @@ def create_app(test_config=None):
 
 
     """
-    Add New Customer (and Cart) from request json
-    Creates a new Customer and a new Cart associated with that customer
+    Add New Customer from request json
     """
-    @app.route('/customers', methods=['POST'])
-    def add_customer():
+    @app.route('/customer', methods=['POST'])
+    @requires_auth('post:customer')
+    def add_customer(payload):
         try:
-            customer = Customer(**request.get_json())
+            sub = payload['sub']
+            data = request.get_json()
+            data['sub'] = sub
+            if Customer.query.filter(Customer.sub == sub).all():
+                abort(403, description="add /customer: Customer Already Exists")
+            
+            customer = Customer(**data)
             customer.insert()
 
-            cart = Cart(customer.id, [])
-            cart.insert()
-
-            customer.cart_id = cart.id
-            customer.update()
-
             return jsonify({
-                'customer': customer.format(),
-                'cart': cart.format()
+                'customer': customer.format()
             }), 200
         except Exception as e:
-            abort(404, description="add /customers: " + str(e))
+            if e.code == 403:
+                raise
+            abort(404, description="add /customer: " + str(e))
 
 
 
@@ -217,35 +211,72 @@ def create_app(test_config=None):
     Add item to cart
     """
     @app.route('/items/<int:item_id>/add_to_cart', methods=['POST'])
-    def add_item_to_cart(item_id):
+    @requires_auth('reserve:item')
+    def add_item_to_cart(payload, item_id):
         try:
+            sub = payload['sub']
+            customer = Customer.query.filter(Customer.sub == sub).one_or_none()
             item = Item.query.filter(Item.id == item_id).one_or_none()
-            print("\nTODO\n")
-            print(item.format())
-            print()
+            if not customer.cart:
+                customer.cart = []
+            customer.cart = customer.cart + [item.id]
+            customer.update()
             return jsonify({
-                'item': item.format()
+                'cart': customer.cart
             }), 200
         except Exception as e:
+            abort(422, description="add /items/<int:item_id>/add_to_cart: " + str(e))
+
+
+    """
+    Remove item from cart
+    """
+    @app.route('/items/<int:item_id>/remove_from_cart', methods=['POST'])
+    @requires_auth('reserve:item')
+    def remove_item_from_cart(payload, item_id):
+        try:
+            sub = payload['sub']
+            customer = Customer.query.filter(Customer.sub == sub).one_or_none()
+            item = Item.query.filter(Item.id == item_id).one_or_none()
+            cart = customer.cart
+
+            if not cart:
+                abort(400, description='remove /items/<intLitem_id>/remove_from_cart: cart is empty')
+
+            if item.id not in cart:
+                abort(400, description='remove /items/<intLitem_id>/remove_from_cart: item not in cart')
+            
+            cart.remove(item.id)
+            print(cart)
+            customer.cart = cart
+            print(customer.cart)
+            customer.update()
+            print(customer.cart)
+            return jsonify({
+                'cart': customer.cart
+            }), 200
+        except Exception as e:
+            if e.code == 400:
+                raise
             abort(422, description="add /items/<int:item_id>/add_to_cart: " + str(e))
 
     
     """
     Place order
     """
-    @app.route('/carts/<int:cart_id>', methods=['POST'])
-    def place_order(cart_id):
+    @app.route('/customer/place_order', methods=['POST'])
+    @requires_auth('reserve:item')
+    def place_order(payload):
         try:
-            cart = Cart.query.filter(Cart.id == cart_id).one_or_none()
-            print("\nTODO\n")
-            print(cart.format())
-            print()
-            cart.item_ids = []
+            sub = payload['sub']
+            customer = Customer.query.filter(Customer.sub == sub).one_or_none()
+            customer.cart = []
+            customer.update()
             return jsonify({
-                'cart': cart.format()
+                'customer': customer.format()
             })
         except Exception as e:
-            abort(404, description="post /carts/<int:cart_id>: " + str(e))
+            abort(404, description="post /customer/place_order: " + str(e))
 
     
     
@@ -260,12 +291,23 @@ def create_app(test_config=None):
     Update specific item
     """
     @app.route('/items/<int:item_id>', methods=['PATCH'])
-    def update_item(item_id):
+    @requires_auth('edit:item')
+    def update_item(payload, item_id):
         try:
             item = Item.query.filter(Item.id == item_id).one_or_none()
-            print("\nTODO\n")
-            print(item.format())
-            print()
+            data = request.get_json()
+
+            if 'cost' in data:
+                item.cost = data['cost']
+            if 'description' in data:
+                item.description = data['description']
+            if 'image' in data:
+                item.image = data['image']
+            if 'name' in data:
+                item.name = data['name']
+            
+            item.update()
+
             return jsonify({
                 'item': item.format()
             }), 200
@@ -276,35 +318,29 @@ def create_app(test_config=None):
     """
     Update specific customer
     """
-    @app.route('/customers/<int:customer_id>', methods=['PATCH'])
-    def update_customer(customer_id):
+    @app.route('/customer', methods=['PATCH'])
+    @requires_auth('edit:customer')
+    def update_customer(payload):
         try:
-            customer = Customer.query.filter(Customer.id == customer_id).one_or_none()
-            print("\nTODO\n")
-            print(customer.format())
-            print()
+            sub = payload['sub']
+            customer = Customer.query.filter(Customer.sub == sub).one_or_none()
+
+            data = request.get_json()
+
+            if 'image' in data:
+                customer.image = data['image']
+            if 'cart' in data:
+                customer.cart = data['cart']
+            if 'name' in data:
+                customer.name = data['name']
+
+            customer.update()
+
             return jsonify({
                 'customer': customer.format()
             }), 200
         except Exception as e:
-            abort(404, description="update /customers/<int:customer_id>: ") + str(e)
-
-
-    """
-    Update specific cart
-    """
-    @app.route('/carts/<int:cart_id>', methods=['PATCH'])
-    def update_cart(cart_id):
-        try:
-            cart = Cart.query.filter(Cart.id == cart_id).one_or_none()
-            print("\nTODO\n")
-            print(cart.format())
-            print()
-            return jsonify({
-                'cart': cart.format()
-            }), 200
-        except Exception as e:
-            abort(404, description="update /carts/<int:cart_id>: ") + str(e)
+            abort(404, description="update /customer: ") + str(e)
 
 
 
@@ -318,7 +354,8 @@ def create_app(test_config=None):
     Delete item
     """
     @app.route('/items/<int:item_id>', methods=['DELETE'])
-    def delete_item(item_id):
+    @requires_auth('delete:item')
+    def delete_item(payload, item_id):
         try:
             item = Item.query.filter(Item.id == item_id).one_or_none()
             print(item.format())
@@ -333,18 +370,19 @@ def create_app(test_config=None):
     """
     Delete Customer
     """
-    @app.route('/customers/<int:customer_id>', methods=['DELETE'])
-    def delete_customer(customer_id):
+    @app.route('/customer', methods=['DELETE'])
+    @requires_auth('delete:customer')
+    def delete_customer(payload):
         try:
-            customer = Customer.query.filter(Customer.id == customer_id).one_or_none()
-            cart = Cart.query.filter(Cart.id == customer.cart_id).one_or_none()
+            sub = payload['sub']
+            customer = Customer.query.filter(Customer.sub == sub).one_or_none()
+            id = customer.id
             customer.delete()
-            cart.delete()
             return jsonify({
-                "message": "deleted customer with id " + str(customer_id)
+                "message": "deleted customer with id " + str(id)
             }), 200
         except Exception as e:
-            abort(404, description="delete /customers/<int:customer_id>: " + str(e))
+            abort(404, description="delete /customer: " + str(e))
 
 
 
@@ -390,6 +428,17 @@ def create_app(test_config=None):
             "error": 500,
             "message": "server error"
         }), 500
+    
+    # AuthError handler from Identity and Access Management
+    @app.errorhandler(AuthError)
+    def authentication_error(error):
+        return jsonify({
+            "success": False,
+            "error": error.status_code,
+            "message": error.error["description"]
+        }), error.status_code
+
+
 
     return app
 
