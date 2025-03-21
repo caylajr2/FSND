@@ -66,7 +66,7 @@ This will start the backend.
 
 ## Postman Tests
 
-To run these tests, you will need a postman account. Download and open the earring_shoppe.postman_collection.json file in postman.
+To run these tests, you will need a postman account. Open the earring_shoppe.postman_collection.json file (found in the FSND folder in the github repository) in postman.
 
 Change the host variable to match yours if necessary.
 
