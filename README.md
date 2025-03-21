@@ -2,9 +2,48 @@
 
 This project is designed to give the owner of the shoppe a convenient place to sell their earrings to customers. Users log in using auth0 and, based on their role of either owner or customer, are given access to various endpoints.
 
-You will need to have postgres, python3, and pip on your computer.
+
+## Render information
+
+Server link: https://render-deployment-example-32e1.onrender.com/
+
+Auth0 Link: https://dev-aavh3rbagn61hnv3.us.auth0.com/authorize?audience=shoppe&response_type=token&client_id=tX5yIt7JVhDd2ShhBAcFxXjrkNdo7kHw&redirect_uri=https://render-deployment-example-32e1.onrender.com/
+
+Auth0 Login Information:
+
+Owner Role:
+
+Alice
+alice123@shoppe.com
+ShoppeOwner1
+
+
+Customer Roles:
+
+Bob
+bob456@employer.net
+Customer1
+
+Charlie
+charlie789@government.org
+Customer2
+
+James
+james108@jobsite.com
+Customer3
+
+
+
+
+To test code, download the earring_shoppe.postman_collection.json file from the FSND folder and open it in Postman. Use the above url as the host address and follow the login instructions in each of the folders to get valid bearer tokens for each user.
+
+
+
+
 
 ## How to run locally
+
+You will need to have postgres, python3, and pip on your computer.
 
 First, pull the code to your computer. From the terminal, enter a psql terminal and create a database named earring_shoppe. Then run the following command to initialize the psql database with the test data, replacing username with your preferred username.
 
