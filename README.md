@@ -19,7 +19,9 @@ Next, enter the ./capstone/starter directory. You will then need to open a virtu
 
 ```
 python3 -m venv venv
+```
 
+```
 venv\Scripts\activate
 ```
 
@@ -35,7 +37,9 @@ Next, initialize the necessary flask variables using the following commands.
 
 ```
 set FLASK_APP=flaskr
+```
 
+```
 set FLASK_DEBUG=1
 ```
 
