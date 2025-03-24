@@ -35,9 +35,20 @@ Customer3
 
 
 
-To test code, download the earring_shoppe.postman_collection.json file from the FSND folder and open it in Postman. Use the above url as the host address and follow the login instructions in each of the folders to get valid bearer tokens for each user.
+To test code using Postman, download the earring_shoppe.postman_collection.json file from the FSND folder and open it in Postman. Use the above url as the host address and follow the login instructions in each of the folders to get valid bearer tokens for each user.
 
 
+
+
+To test the code using pytest, open the test_app.py file in the FSND/capstone/starter folder. Modify the base url if you are testing a locally run version of the code and update the bearer tokens for Customer 1, 2, 3, and Owner using the login link and information above. In the terminal, navigate to the FSND/capstone/starter folder and run the following command:
+
+```
+pytest test_app.py
+```
+
+Note that each item can only be deleted once so if running the tests multiple times, the final test will fail unless the ```ITEM_TO_DELETE``` variable is updated to a new value.
+
+These tests currently have values hardcoded in, but these can be changed in order to ascertain that the values are being updated correctly.
 
 
 
